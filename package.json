@@ -1,0 +1,86 @@
+{
+  "name": "stlmanager",
+  "version": "1.0.0",
+  "description": "STL Manager — Professional 3D Model Library",
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "build:electron": "node scripts/build-electron.mjs",
+    "build:ui": "vite build",
+    "build": "node scripts/build-electron.mjs && vite build",
+    "start": "electron .",
+    "test": "node tests/run-all-tests.mjs",
+    "dist": "npm run build && electron-builder --win nsis"
+  },
+  "build": {
+    "appId": "com.stlmanager.app",
+    "productName": "STL Manager",
+    "artifactName": "STLManager-Setup-${version}.${ext}",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "**/node_modules/better-sqlite3/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "STL Manager"
+    }
+  },
+  "keywords": [
+    "3d",
+    "stl",
+    "3mf",
+    "gcode",
+    "3d-printing",
+    "electron"
+  ],
+  "author": "STL Manager Team",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.5",
+    "better-sqlite3": "^13.0.3",
+    "chokidar": "^6.0.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.71.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwind-merge": "^3.7.0",
+    "three": "^0.187.0",
+    "zustand": "^5.1.0"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^4.2.1",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.187.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "autoprefixer": "^10.6.2",
+    "electron": "^24.22.2",
+    "electron-builder": "^26.18.0",
+    "esbuild": "^0.28.2",
+    "postcss": "^8.5.32",
+    "tailwindcss": "^4.3.5",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.7"
+  }
+}

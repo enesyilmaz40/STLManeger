@@ -1,0 +1,56 @@
+import fs from 'fs';
+import path from 'path';
+
+// Generate a valid 256x256 PNG icon using raw PNG generation or SVG to PNG
+// Let's create an SVG icon first
+const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#090d16"/>
+    </linearGradient>
+    <linearGradient id="cubeTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="cubeLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="cubeRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background rounded rect -->
+  <rect width="256" height="256" rx="56" fill="url(#bg)" stroke="#334155" stroke-width="4"/>
+
+  <!-- 3D Isometric Cube -->
+  <!-- Top Face -->
+  <polygon points="128,48 196,88 128,128 60,88" fill="url(#cubeTop)"/>
+  
+  <!-- Left Face -->
+  <polygon points="60,88 128,128 128,208 60,168" fill="url(#cubeLeft)"/>
+  
+  <!-- Right Face -->
+  <polygon points="128,128 196,88 196,168 128,208" fill="url(#cubeRight)"/>
+
+  <!-- Wireframe lines inside cube for 3D STL feel -->
+  <line x1="128" y1="48" x2="128" y2="128" stroke="#93c5fd" stroke-width="2" stroke-opacity="0.6"/>
+  <line x1="60" y1="88" x2="196" y2="88" stroke="#93c5fd" stroke-width="2" stroke-opacity="0.6"/>
+  <line x1="60" y1="168" x2="128" y2="128" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="196" y1="168" x2="128" y2="128" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="128" y1="208" x2="128" y2="128" stroke="#3b82f6" stroke-width="2" stroke-opacity="0.5"/>
+
+  <!-- Subtle glow dot -->
+  <circle cx="128" cy="128" r="4" fill="#ffffff" opacity="0.9"/>
+</svg>`;
+
+if (!fs.existsSync('build')) {
+  fs.mkdirSync('build', { recursive: true });
+}
+
+fs.writeFileSync('build/icon.svg', svgContent);
+console.log('Icon SVG created in build/icon.svg');
+
